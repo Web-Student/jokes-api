@@ -35,9 +35,9 @@ jobs:
                     cat "$file" | envsubst | kubectl apply -f -;
                 done
 
-            - name: config map (do I need to put this before I push the image to docker so it runs the build ok?)
+            - name: config map
               run: |
-                kubectl -n rdirectory delete configmap racheljokedatabase || true
+                kubectl -n rdirectory delete configmap joke-api-postgres-init || true
                 ls
-                kubectl -n rdirectory create configmap racheljokedatabase --from-file=./database/init.sql
+                kubectl -n rdirectory create configmap joke-api-postgres-init --from-file=./database/init.sql
                 

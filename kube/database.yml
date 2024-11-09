@@ -31,29 +31,29 @@ spec:
         app: joke-api-db
     spec:
       containers:
-      - name: joke-api-db
-        image: postgres
-        ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_USER
-          value: postgres
-        - name: POSTGRES_PASSWORD
-          value: postgres
-        - name: POSTGRES_DB
-          value: postgres
-        volumeMounts:
+        - name: joke-api-db
+          image: postgres
+          ports:
+          - containerPort: 5432
+          env:
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_DB
+            value: postgres
+          volumeMounts:
+          - name: postgresstorage
+            mountPath: /var/lib/postgresql/data
+          - name: init-script
+            mountPath: /docker-entrypoint-initdb.d
+        volumes:
         - name: postgresstorage
-          mountPath: /var/lib/postgresql/data
+          persistentVolumeClaim:
+            claimName: joke-api-db-pvc
         - name: init-script
-          mountPath: /docker-entrypoint-initdb.d
-      volumes:
-      - name: postgresstorage
-        persistentVolumeClaim:
-          claimName: joke-api-db-pvc
-      - name: init-script
-        configMap:
-          name: joke-api-postgres-init
+          configMap:
+            name: joke-api-postgres-init
 ---
 apiVersion: v1
 kind: Service

@@ -6,7 +6,7 @@ on:
     workflow_dispatch:
 jobs:
     build-deploy:
-        runs-on: jokes-api
+        runs-on: self-hosted
         steps:
             - name: Checkout code
               uses: actions/checkout@v4

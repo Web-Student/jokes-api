@@ -6,12 +6,12 @@ metadata:
 spec:
   rules:
   - host: api.funjokes.duckdns.org
-  http:
-    paths:
-    - path: /
-      pathType: Prefix
-      backend:
-        service:
-          name: joke-api-service
-          port:
-            number: 8080
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: joke-api-service
+            port:
+              number: 8080

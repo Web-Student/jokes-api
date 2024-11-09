@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-joke-app-ingress
+  namespace: rjoke
+spec:
+  rules:
+  - host: api.funjokes.duckdns.org
+  http:
+    paths:
+    - path: /
+      pathType: Prefix
+      backend:
+        service:
+          name: api-joke-service
+          port:
+            number: 8080

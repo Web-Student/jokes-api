@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: joke-api
+  namesapce: rjoke
+spec:
+  replicas: 1
+  selector: 1
+    matchlabels:
+      app: joke-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: joke-api
+    spec:
+      containers:
+      - name: joke-api
+      image: rachelallen1/joke-api-web-student:${IMAGE_TAG}
+      ports:
+      - containerPort: 8080
+      readinessPrbe:
+        httpGet:
+          path: /
+          port: 8080
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        timeoutSeconds: 3
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 8080
+        initialDelaySeconds: 15
+        periodSeconds: 20

@@ -1,5 +1,5 @@
 CREATE SCHEMA public;
-
+--one more comment
 -- i left out some of the heap stuff, etc in the inventory management api. if this fails bring that back in --
 --in fact, here it is but commented out --
 -- SET statement_timeout = 0;

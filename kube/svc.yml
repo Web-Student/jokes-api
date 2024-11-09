@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: joke-api-service
+  namespace: rachel
+spec:
+  selector:
+    app: joke-api
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP

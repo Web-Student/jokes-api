@@ -19,10 +19,10 @@ spec:
         app: joke-api
     spec:
       containers:
-        - name: joke-api
+      - name: joke-api
         image: rachelallen1/joke-api-web-student:${IMAGE_TAG}
         ports:
-          - containerPort: 8080
+        - containerPort: 8080
         readinessProbe:
           httpGet:
             path: /

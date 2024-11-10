@@ -5,7 +5,7 @@ metadata:
   namespace: rjoke
 spec:
   rules:
-  - host: api.funjokes.duckdns.org
+  - host: api.rachelrecipe.duckdns.org
     http:
       paths:
       - path: /

@@ -37,7 +37,7 @@ jobs:
 
             - name: config map
               run: |
-                kubectl -n rdirectory delete configmap joke-api-postgres-init || true
+                kubectl -n rjoke delete configmap joke-api-postgres-init || true
                 ls
-                kubectl -n rdirectory create configmap joke-api-postgres-init --from-file=./database/init.sql
+                kubectl -n rjoke create configmap joke-api-postgres-init --from-file=./database/init.sql
                 

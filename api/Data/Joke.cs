@@ -1,8 +1,10 @@
-namespace Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace Data;
+[Table("joke")]
 public class Joke {
-    public int Id {get;set;}
-    public string? Author {get;set;}
-    public string? Question {get;set;}
-    public string? Answer {get;set;}
+    public int id {get;set;}
+    public string? author {get;set;}
+    public string? question {get;set;}
+    public string? answer {get;set;}
 }

@@ -2,7 +2,11 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 
 
-class JokeDbContext(DbContextOptions<JokeDbContext> options) : DbContext(options) {
+public class JokeDbContext : DbContext {
+    public JokeDbContext(DbContextOptions<JokeDbContext> options): base(options)
+    {
+        
+    }
     public DbSet<Joke> Jokes => Set<Joke>();
 
 }

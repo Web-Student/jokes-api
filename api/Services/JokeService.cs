@@ -19,6 +19,14 @@ public class JokeService{
         int rand = Random.Shared.Next(0, jokeList.Count);
         return jokeList[rand];
     }
+
+    public async Task<Joke> AddJokeAsync(Joke newJoke) {
+        var context = contextFactory.CreateDbContext();
+        var addedJoke = await context.Jokes.AddAsync(newJoke);
+        await context.SaveChangesAsync();
+        return addedJoke.Entity;
+    }
+    
     public async Task<Joke> EditJokeAsync(int id, Joke updatedJoke) {
         var context = contextFactory.CreateDbContext();
         var dbjoke = await context.Jokes.Where(j => j.id == id).FirstOrDefaultAsync();

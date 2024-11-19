@@ -26,4 +26,18 @@ app.MapGet("/jokes", async (JokeService service) =>  {
     // };
 });
 
+app.MapGet("/random", async (JokeService service) =>  {
+    //Thread.Sleep(5000);
+    var response = await service.GetRandomJokeAsync();
+    if (response.id < 0) {
+        throw new Exception("failed to fetch random joke");
+    }
+    return response;
+});
+
+app.MapPost("/add", async (Joke newJoke, JokeService service) => {
+    var joke = await service.AddJokeAsync(newJoke);
+    return joke.id;
+});
+
 app.Run();

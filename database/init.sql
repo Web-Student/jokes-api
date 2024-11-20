@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS public;
 
 CREATE TABLE public.joke(
-    Id integer Not NULL primary key,
+    Id serial Not NULL primary key,
     Author character varying(100),
     Question character varying(500),
     Answer character varying(500)

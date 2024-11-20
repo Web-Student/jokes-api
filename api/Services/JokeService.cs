@@ -22,6 +22,7 @@ public class JokeService{
 
     public async Task<Joke> AddJokeAsync(Joke newJoke) {
         var context = contextFactory.CreateDbContext();
+        //newJoke.id = 0;
         var addedJoke = await context.Jokes.AddAsync(newJoke);
         await context.SaveChangesAsync();
         return addedJoke.Entity;

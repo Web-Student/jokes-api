@@ -22,7 +22,6 @@ public class JokeService{
 
     public async Task<Joke> AddJokeAsync(Joke newJoke) {
         var context = contextFactory.CreateDbContext();
-        //newJoke.id = 0;
         var addedJoke = await context.Jokes.AddAsync(newJoke);
         await context.SaveChangesAsync();
         return addedJoke.Entity;
@@ -44,5 +43,16 @@ public class JokeService{
                 id = -1
             };
         }
+    }
+
+    public async Task<bool> DeleteJokeAsync(int id) {
+        var context = contextFactory.CreateDbContext();
+        var joke = await context.Jokes.Where(j => j.id == id).FirstOrDefaultAsync();
+        if (joke is null) {
+            return false;
+        }
+        context.Remove<Joke>(joke);
+        await context.SaveChangesAsync();
+        return true;
     }
 }

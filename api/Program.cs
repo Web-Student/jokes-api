@@ -40,4 +40,10 @@ app.MapPost("/add", async (Joke newJoke, JokeService service) => {
     return joke.id;
 });
 
+app.MapDelete("/delete/{id:int}", async (int id, JokeService service) => {
+    Console.WriteLine($"DELETE endpoint hit with id = {id}");
+    var successful = await service.DeleteJokeAsync(id);
+    return successful;
+});
+
 app.Run();

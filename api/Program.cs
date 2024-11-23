@@ -23,6 +23,10 @@ app.MapGet("/authors", async (JokeService service) =>  {
     return response;
 });
 
+app.MapGet("/jokesbyauthor/{author:string}", async (string author, JokeService service) => {
+    var response = await service.GetAllJokesByAuthorAsync(author);
+});
+
 app.MapGet("/random", async (JokeService service) =>  {
     //Thread.Sleep(5000);
     var response = await service.GetRandomJokeAsync();

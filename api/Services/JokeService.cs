@@ -66,6 +66,7 @@ public class JokeService{
                     author = a.Key ?? "", //convert null to empty string to make it easy for react
                     count = a.Count()
                 } )
+                .OrderByDescending(a => a.count)
                 .ToListAsync();
             if (countByAuthors is null) {
                 return new List<AuthorCount>();
@@ -101,5 +102,12 @@ public class JokeService{
         //     Console.WriteLine("list contains " + a);
         // }
         // return new List<(string, int)> ();
+    }
+
+    public async Task<IEnumerable<Joke>> GetAllJokesByAuthorAsync(string author)
+    {
+        var context = contextFactory.CreateDbContext();
+        var jokesbyauthor = await context.Jokes.Where(j => j.author == author).ToListAsync();
+        return jokesbyauthor;
     }
 }

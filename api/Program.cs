@@ -16,14 +16,11 @@ app.MapGet("/jokes", async (JokeService service) =>  {
     //Thread.Sleep(5000);
     var response = await service.GetAllJokesAsync();
     return response;
-    // return new List<Joke>{ 
-    //     new Joke {
-    //         Id = 1,
-    //         Question = "Have you ever eaten a clock?",
-    //         Answer = "It's very time-consuming",
-    //         Author = "rachel@mail.com"
-    //     }  
-    // };
+});
+
+app.MapGet("/authors", async (JokeService service) =>  {
+    var response = await service.GetAllAuthorsAsync();
+    return response;
 });
 
 app.MapGet("/random", async (JokeService service) =>  {

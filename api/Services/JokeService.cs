@@ -1,3 +1,4 @@
+using System.Globalization;
 using Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,5 +55,19 @@ public class JokeService{
         context.Remove<Joke>(joke);
         await context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<List<(string, int)>> GetAllAuthorsAsync() {
+        var context = contextFactory.CreateDbContext();
+        var countByAuthors = await context.Jokes.GroupBy(j => j.author)
+            .Select(a => new ValueTuple<string, int>(
+                a.Key ?? "", //convert null to empty string to make it easy for react
+                a.Count()
+            ))
+            .ToListAsync();
+        if (countByAuthors is null) {
+            return new List<(string, int)>();
+        }
+        return countByAuthors;
     }
 }

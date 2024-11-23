@@ -9,4 +9,10 @@ public class JokeDbContext : DbContext {
     }
     public DbSet<Joke> Jokes => Set<Joke>();
 
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+    //     base.OnConfiguring(optionsBuilder);
+    //     optionsBuilder.LogTo(Console.WriteLine);  // Log to the console
+    // }
+
 }

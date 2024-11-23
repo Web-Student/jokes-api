@@ -1,6 +1,7 @@
 using System.Globalization;
 using Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 public class JokeService{
     private IDbContextFactory<JokeDbContext> contextFactory;
@@ -59,15 +60,46 @@ public class JokeService{
 
     public async Task<List<(string, int)>> GetAllAuthorsAsync() {
         var context = contextFactory.CreateDbContext();
-        var countByAuthors = await context.Jokes.GroupBy(j => j.author)
-            .Select(a => new ValueTuple<string, int>(
-                a.Key ?? "", //convert null to empty string to make it easy for react
-                a.Count()
-            ))
-            .ToListAsync();
-        if (countByAuthors is null) {
-            return new List<(string, int)>();
-        }
-        return countByAuthors;
+        //try {
+            var countByAuthors = await context.Jokes.GroupBy(j => j.author)
+                .Select(a => new AuthorCount {
+                    author = a.Key ?? "", //convert null to empty string to make it easy for react
+                    count = a.Count()
+                } )
+                .ToListAsync();
+                if (countByAuthors is null) {
+                return new List<(string, int)>();
+            }
+            // var authorsADifferentWay = await context.Jokes
+            //     .Select(j => j.author) // Ensure the property is eagerly loaded
+            //     .GroupBy(a => a)
+            //     .ToListAsync();
+            // foreach (var author in authorsADifferentWay) {
+            //     Console.WriteLine("authors a different way" + author);
+            // }
+            //var authors = await context.Jokes.GroupBy(j => j.author).ToListAsync(); //this is null
+            //var countByAuthors = new List<(string, int)>();
+            // foreach (var item in authors) {
+            //     Console.WriteLine("item is " + item);
+            //     //var num = await context.Jokes.Where(j => j.author == item)
+            // }
+            foreach (var count in countByAuthors) {
+                Console.WriteLine("retrieved count by authors as " +  count);
+            }
+            return countByAuthors;
+        //}
+        // catch (Exception e) {
+        //      Console.WriteLine("caught error " + e.Message.ToString());
+        // }
+        // var auth = await context.Jokes.ToListAsync();
+        // List<string> authorsList = new();
+        // foreach (var a in auth) {
+        //     Console.WriteLine(a.author);
+        //     authorsList.Add(a.author ?? "");
+        // }
+        // foreach (var a in authorsList) {
+        //     Console.WriteLine("list contains " + a);
+        // }
+        // return new List<(string, int)> ();
     }
 }

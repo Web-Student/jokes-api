@@ -58,7 +58,7 @@ public class JokeService{
         return true;
     }
 
-    public async Task<List<(string, int)>> GetAllAuthorsAsync() {
+    public async Task<List<AuthorCount>> GetAllAuthorsAsync() {
         var context = contextFactory.CreateDbContext();
         //try {
             var countByAuthors = await context.Jokes.GroupBy(j => j.author)
@@ -67,8 +67,8 @@ public class JokeService{
                     count = a.Count()
                 } )
                 .ToListAsync();
-                if (countByAuthors is null) {
-                return new List<(string, int)>();
+            if (countByAuthors is null) {
+                return new List<AuthorCount>();
             }
             // var authorsADifferentWay = await context.Jokes
             //     .Select(j => j.author) // Ensure the property is eagerly loaded

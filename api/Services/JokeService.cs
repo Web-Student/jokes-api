@@ -110,4 +110,11 @@ public class JokeService{
         var jokesbyauthor = await context.Jokes.Where(j => j.author == author).ToListAsync();
         return jokesbyauthor;
     }
+
+    internal async Task<Joke> GetJokeByIdAsync(int jokeid)
+    {
+        var context = contextFactory.CreateDbContext();
+        var selectedJoke = await context.Jokes.Where(j => j.id == jokeid).FirstOrDefaultAsync();
+        return selectedJoke;
+    }
 }

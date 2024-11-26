@@ -12,23 +12,28 @@ app.UseCors(config =>
 
 app.MapGet("/", () => "Hello World!");
 
+app.MapGet("/authors", async (JokeService service) =>  {
+    var response = await service.GetAllAuthorsAsync();
+    return response;
+});
+
 app.MapGet("/jokes", async (JokeService service) =>  {
     //Thread.Sleep(5000);
     var response = await service.GetAllJokesAsync();
     return response;
 });
 
-app.MapGet("/authors", async (JokeService service) =>  {
-    var response = await service.GetAllAuthorsAsync();
+app.MapGet("/jokes/{jokeid:int}", async (int jokeid, JokeService service) =>  {
+    var response = await service.GetJokeByIdAsync(jokeid);
     return response;
 });
 
-app.MapGet("/jokesbyauthor/{author:string}", async (string author, JokeService service) => {
+
+app.MapGet("/jokesbyauthor/{author}", async (string author, JokeService service) => {
     var response = await service.GetAllJokesByAuthorAsync(author);
 });
 
 app.MapGet("/random", async (JokeService service) =>  {
-    //Thread.Sleep(5000);
     var response = await service.GetRandomJokeAsync();
     if (response.id < 0) {
         throw new Exception("failed to fetch random joke");

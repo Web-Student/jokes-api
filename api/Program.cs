@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddDbContextFactory<JokeDbContext>(opt => opt.UseNpgsql(builder.Configuration["database"]));
+
 builder.Services.AddScoped<JokeService>();
 var app = builder.Build();
 app.UseCors(config => 

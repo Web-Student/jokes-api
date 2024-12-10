@@ -21,6 +21,10 @@ jobs:
               run: |
                 cd ./api
                 docker build -t rachelallen1/joke-api-web-student:${{github.run_number}} .
+            - name: test
+              run: |
+                cd ./Tests
+                dotnet test
 
             - name: push the image to docker, with the latest run number
               run: docker push rachelallen1/joke-api-web-student:${{github.run_number}}
